@@ -40,12 +40,12 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       {/* Enhanced Responsive Navbar */}
       <nav className="bg-gray-900/95 backdrop-blur-md text-white relative z-50 sticky top-0 border-b border-gray-700">
-        <div className="w-full px-2 py-2">
-          <div className="flex justify-between items-center h-10">
+        <div className="w-full px-1 xxs:px-2 xs:px-3 sm2:px-4 py-1 xxs:py-2">
+          <div className="flex justify-between items-center h-8 xxs:h-10 xs:h-12">
             {/* Logo */}
             <div className="flex items-center space-x-1 flex-shrink-0">
-              <Image src="/favicon.ico" alt="PACE Logo" width={20} height={20} className="rounded-full" priority />
-              <h1 className="text-xs font-bold">PACE</h1>
+              <Image src="/favicon.ico" alt="PACE Logo" width={16} height={16} className="xxs:w-5 xxs:h-5 xs:w-6 xs:h-6 rounded-full" priority />
+              <h1 className="text-xs xxs:text-sm xs:text-base font-bold truncate">PACE</h1>
             </div>
             
             {/* Desktop Menu */}
@@ -59,22 +59,22 @@ export default function Home() {
             {/* Mobile Menu Button */}
             <button 
               onClick={toggleMenu}
-              className="md:hidden w-6 h-6 flex flex-col justify-center items-center flex-shrink-0"
+              className="md:hidden w-5 h-5 xxs:w-6 xxs:h-6 xs:w-8 xs:h-8 flex flex-col justify-center items-center flex-shrink-0"
               aria-label="Menu"
             >
-              <span className={`w-3 h-0.5 bg-white mb-0.5 transition-transform ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></span>
-              <span className={`w-3 h-0.5 bg-white mb-0.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`w-3 h-0.5 bg-white transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></span>
+              <span className={`w-3 xxs:w-4 h-0.5 bg-white mb-0.5 transition-transform ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></span>
+              <span className={`w-3 xxs:w-4 h-0.5 bg-white mb-0.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`w-3 xxs:w-4 h-0.5 bg-white transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></span>
             </button>
           </div>
           
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden mt-1 pb-1">
-              <a href="#home" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">Home</a>
-              <a href="#about" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">About</a>
-              <a href="#products" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">Products</a>
-              <a href="#contact" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">Contact</a>
+              <a href="#home" onClick={closeMenu} className="block py-1 px-1 text-xs xxs:text-sm font-medium">Home</a>
+              <a href="#about" onClick={closeMenu} className="block py-1 px-1 text-xs xxs:text-sm font-medium">About</a>
+              <a href="#products" onClick={closeMenu} className="block py-1 px-1 text-xs xxs:text-sm font-medium">Products</a>
+              <a href="#contact" onClick={closeMenu} className="block py-1 px-1 text-xs xxs:text-sm font-medium">Contact</a>
             </div>
           )}
         </div>
