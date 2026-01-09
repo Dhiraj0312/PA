@@ -24,3 +24,95 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Mobile-first responsive utilities */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ensure text is readable on small screens */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+  }
+  
+  /* Better touch targets for mobile */
+  button, a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Extra small mobile devices (320px and up) */
+@media (max-width: 320px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Compact text sizing */
+  .text-2xl { font-size: 1.25rem; }
+  .text-3xl { font-size: 1.5rem; }
+  .text-4xl { font-size: 1.75rem; }
+  .text-5xl { font-size: 2rem; }
+  
+  /* Reduce spacing */
+  .space-x-4 > * + * { margin-left: 0.5rem; }
+  .space-y-4 > * + * { margin-top: 0.5rem; }
+  .p-4 { padding: 0.5rem; }
+  .p-6 { padding: 0.75rem; }
+  .p-8 { padding: 1rem; }
+}
+
+/* Small mobile devices (375px and up) */
+@media (max-width: 375px) {
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Adjust grid gaps */
+  .gap-6 { gap: 1rem; }
+  .gap-8 { gap: 1.25rem; }
+  
+  /* Compact padding */
+  .p-6 { padding: 1rem; }
+  .p-8 { padding: 1.25rem; }
+}
+
+/* Medium mobile devices (425px and up) */
+@media (max-width: 425px) {
+  .container {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+  
+  /* Better spacing */
+  .gap-8 { gap: 1.5rem; }
+  .p-8 { padding: 1.5rem; }
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Better focus states for accessibility */
+button:focus, a:focus, input:focus, textarea:focus {
+  outline: 2px solid #06b6d4;
+  outline-offset: 2px;
+}
+
+/* Optimize images for mobile */
+img {
+  max-width: 100%;
+  height: auto;
+}

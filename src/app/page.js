@@ -1,10 +1,13 @@
 'use client';
 import Image from "next/image";
+import { useState } from "react";
 import LightRays from './LightRays';
 import PerformanceOptimizer from './PerformanceOptimizer';
 import './performance.css';
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -24,27 +27,61 @@ export default function Home() {
     e.target.reset();
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <PerformanceOptimizer>
     <div className="min-h-screen bg-black text-white">
-      {/* Navbar */}
-      <nav className="bg-gray-900 text-white p-4 relative z-50 sticky top-0 backdrop-blur-sm">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <Image src="/favicon.ico" alt="PACE Logo" width={40} height={40} className="rounded-full" priority />
-            <h1 className="text-2xl font-bold">PACE</h1>
+      {/* Enhanced Responsive Navbar */}
+      <nav className="bg-gray-900/95 backdrop-blur-md text-white relative z-50 sticky top-0 border-b border-gray-700">
+        <div className="w-full px-2 py-2">
+          <div className="flex justify-between items-center h-10">
+            {/* Logo */}
+            <div className="flex items-center space-x-1 flex-shrink-0">
+              <Image src="/favicon.ico" alt="PACE Logo" width={20} height={20} className="rounded-full" priority />
+              <h1 className="text-xs font-bold">PACE</h1>
+            </div>
+            
+            {/* Desktop Menu */}
+            <div className="hidden md:flex space-x-6">
+              <a href="#home" className="hover:text-blue-300 transition-colors font-medium text-sm">Home</a>
+              <a href="#about" className="hover:text-blue-300 transition-colors font-medium text-sm">About</a>
+              <a href="#products" className="hover:text-blue-300 transition-colors font-medium text-sm">Products</a>
+              <a href="#contact" className="hover:text-blue-300 transition-colors font-medium text-sm">Contact</a>
+            </div>
+            
+            {/* Mobile Menu Button */}
+            <button 
+              onClick={toggleMenu}
+              className="md:hidden w-6 h-6 flex flex-col justify-center items-center flex-shrink-0"
+              aria-label="Menu"
+            >
+              <span className={`w-3 h-0.5 bg-white mb-0.5 transition-transform ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></span>
+              <span className={`w-3 h-0.5 bg-white mb-0.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`w-3 h-0.5 bg-white transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></span>
+            </button>
           </div>
-          <div className="space-x-6">
-            <a href="#home" className="hover:text-blue-300 transition-colors duration-200">Home</a>
-            <a href="#about" className="hover:text-blue-300 transition-colors duration-200">About Us</a>
-            <a href="#products" className="hover:text-blue-300 transition-colors duration-200">Products</a>
-            <a href="#contact" className="hover:text-blue-300 transition-colors duration-200">Contact Us</a>
-          </div>
+          
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-1 pb-1">
+              <a href="#home" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">Home</a>
+              <a href="#about" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">About</a>
+              <a href="#products" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">Products</a>
+              <a href="#contact" onClick={closeMenu} className="block py-1 px-1 text-xs font-medium">Contact</a>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="bg-black py-20 relative overflow-hidden will-change-transform">
+      <section id="home" className="bg-black py-12 sm:py-16 lg:py-20 relative overflow-hidden will-change-transform">
         <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, transform: 'translateZ(0)' }}>
           <LightRays
             raysOrigin="top-center"
@@ -59,17 +96,17 @@ export default function Home() {
             className="hero-rays"
           />
         </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-5xl font-bold text-white mb-6 will-change-transform">
+        <div className="container mx-auto px-2 xs:px-3 sm:px-4 text-center relative z-10">
+          <h2 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 xs:mb-4 sm:mb-6 will-change-transform leading-tight">
             PACE - Industrial Power Electronics Excellence
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-sm xs:text-base sm:text-lg lg:text-xl text-gray-300 mb-4 xs:mb-6 sm:mb-8 max-w-3xl mx-auto px-1 xs:px-2">
             35+ years of engineering expertise in industrial and power electronics product development. 
             Delivering reliable solutions for battery industry and beyond.
           </p>
-          <div className="bg-gray-900/90 backdrop-blur-sm p-8 rounded-lg shadow-lg max-w-4xl mx-auto border border-gray-700">
-            <h3 className="text-3xl font-bold text-cyan-400 mb-4">CB25 Current Balancer</h3>
-            <p className="text-lg text-gray-300">
+          <div className="bg-gray-900/90 backdrop-blur-sm p-3 xs:p-4 sm:p-6 lg:p-8 rounded-lg shadow-lg max-w-4xl mx-auto border border-gray-700">
+            <h3 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold text-cyan-400 mb-2 xs:mb-3 sm:mb-4">CB25 Current Balancer</h3>
+            <p className="text-xs xs:text-sm sm:text-base lg:text-lg text-gray-300">
               Revolutionary current balancing technology that automatically balances current in two paths, 
               ensuring consistent battery quality while reducing rework, warranty claims, and power dissipation.
             </p>
@@ -78,25 +115,25 @@ export default function Home() {
       </section>
 
       {/* About Us */}
-      <section id="about" className="py-16 bg-black">
+      <section id="about" className="py-12 sm:py-16 bg-black">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">About Us</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">Engineering Excellence Since Decades</h3>
-              <p className="text-gray-300 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-white mb-8 sm:mb-12">About Us</h2>
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <h3 className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4">Engineering Excellence Since Decades</h3>
+              <p className="text-gray-300 mb-4 text-sm sm:text-base">
                 Founded by seasoned engineers with 35+ years of combined experience in industrial and 
                 power electronics product development. Our team has successfully developed and supplied 
                 reliable products across various industries.
               </p>
-              <p className="text-gray-300">
+              <p className="text-gray-300 text-sm sm:text-base">
                 With extensive background in the battery industry from previous employment, we understand 
                 the critical challenges and deliver innovative solutions that make a real difference.
               </p>
             </div>
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-700">
-              <h4 className="text-xl font-bold text-cyan-400 mb-4">Our Expertise</h4>
-              <ul className="space-y-2 text-gray-300">
+            <div className="bg-gray-900 p-6 sm:p-8 rounded-lg border border-gray-700 order-1 md:order-2">
+              <h4 className="text-lg sm:text-xl font-bold text-cyan-400 mb-4">Our Expertise</h4>
+              <ul className="space-y-2 text-gray-300 text-sm sm:text-base">
                 <li>• Industrial Electronics Development</li>
                 <li>• Power Electronics Solutions</li>
                 <li>• Battery Industry Applications</li>
@@ -138,12 +175,12 @@ export default function Home() {
           </div>
 
           {/* Product Details Grid */}
-          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+          <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto mb-12 sm:mb-16">
             
             {/* Product Image */}
             <div className="lg:col-span-1">
-              <div className="bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
-                <h4 className="text-xl font-bold text-purple-400 mb-6 text-center">CB25 Current Balancer</h4>
+              <div className="bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-lg p-4 sm:p-6 border border-gray-700">
+                <h4 className="text-lg sm:text-xl font-bold text-purple-400 mb-4 sm:mb-6 text-center">CB25 Current Balancer</h4>
                 
                 {/* Main Product Image */}
                 <div className="relative bg-gray-800 rounded-lg overflow-hidden mb-4">
@@ -161,19 +198,19 @@ export default function Home() {
                 
                 {/* Product Info */}
                 <div className="text-center mb-4">
-                  <h5 className="text-lg font-bold text-white mb-2">CB25-Pro Current Balancer</h5>
-                  <p className="text-gray-300 text-sm mb-3">High-precision dual-path current balancing solution</p>
-                  <div className="flex justify-center items-center space-x-4 mb-4">
+                  <h5 className="text-base sm:text-lg font-bold text-white mb-2">CB25-Pro Current Balancer</h5>
+                  <p className="text-gray-300 text-xs sm:text-sm mb-3">High-precision dual-path current balancing solution</p>
+                  <div className="flex justify-center items-center space-x-2 sm:space-x-4 mb-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-green-400">±0.1%</div>
+                      <div className="text-lg sm:text-2xl font-bold text-green-400">±0.1%</div>
                       <div className="text-xs text-gray-400">Accuracy</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-400">25A</div>
+                      <div className="text-lg sm:text-2xl font-bold text-blue-400">25A</div>
                       <div className="text-xs text-gray-400">Max Current</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-400">&lt;10ms</div>
+                      <div className="text-lg sm:text-2xl font-bold text-purple-400">&lt;10ms</div>
                       <div className="text-xs text-gray-400">Response</div>
                     </div>
                   </div>
@@ -222,8 +259,8 @@ export default function Home() {
 
             {/* Technical Specifications */}
             <div className="lg:col-span-1">
-              <div className="bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700 h-full">
-                <h4 className="text-xl font-bold text-purple-400 mb-6">Technical Specs</h4>
+              <div className="bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-lg p-4 sm:p-6 border border-gray-700 h-full">
+                <h4 className="text-lg sm:text-xl font-bold text-purple-400 mb-4 sm:mb-6">Technical Specs</h4>
                 <div className="space-y-4">
                   <div className="bg-gray-800 p-4 rounded-lg">
                     <div className="text-purple-400 font-bold mb-1">Input Voltage</div>
@@ -251,8 +288,8 @@ export default function Home() {
 
             {/* Features & Applications */}
             <div className="lg:col-span-1">
-              <div className="bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700 h-full">
-                <h4 className="text-xl font-bold text-purple-400 mb-6">Key Features</h4>
+              <div className="bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-lg p-4 sm:p-6 border border-gray-700 h-full">
+                <h4 className="text-lg sm:text-xl font-bold text-purple-400 mb-4 sm:mb-6">Key Features</h4>
                 <ul className="space-y-3 text-gray-300 mb-6">
                   <li className="flex items-start">
                     <span className="text-green-400 mr-2">•</span>
@@ -276,7 +313,7 @@ export default function Home() {
                   </li>
                 </ul>
                 
-                <h5 className="text-lg font-bold text-purple-400 mb-3">Applications</h5>
+                <h5 className="text-base sm:text-lg font-bold text-purple-400 mb-3">Applications</h5>
                 <ul className="space-y-2 text-gray-300">
                   <li className="flex items-start">
                     <span className="text-blue-400 mr-2">•</span>
@@ -348,7 +385,7 @@ export default function Home() {
       </section>
 
       {/* Performance Comparison */}
-      <section className="py-16 bg-black relative overflow-hidden">
+      <section className="py-12 sm:py-16 bg-black relative overflow-hidden">
         <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}>
           <LightRays
             raysOrigin="right"
@@ -363,14 +400,14 @@ export default function Home() {
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">CB25 vs Traditional Methods</h2>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-white mb-8 sm:mb-12">CB25 vs Traditional Methods</h2>
           
           {/* Before/After Comparison */}
-          <div className="max-w-6xl mx-auto mb-16">
-            <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-6xl mx-auto mb-12 sm:mb-16">
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Traditional Method */}
-              <div className="bg-red-900/20 backdrop-blur-sm p-8 rounded-lg border border-red-500/30">
-                <h3 className="text-2xl font-bold text-red-400 mb-6 text-center">❌ Traditional Method</h3>
+              <div className="bg-red-900/20 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-lg border border-red-500/30">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-red-400 mb-4 sm:mb-6 text-center">❌ Traditional Method</h3>
                 <div className="space-y-4">
                   <div className="bg-red-800/30 p-4 rounded">
                     <h4 className="font-bold text-red-300 mb-2">Current Imbalance Issues</h4>
@@ -398,8 +435,8 @@ export default function Home() {
               </div>
 
               {/* CB25 Method */}
-              <div className="bg-green-900/20 backdrop-blur-sm p-8 rounded-lg border border-green-500/30">
-                <h3 className="text-2xl font-bold text-green-400 mb-6 text-center">✅ With CB25</h3>
+              <div className="bg-green-900/20 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-lg border border-green-500/30">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-green-400 mb-4 sm:mb-6 text-center">✅ With CB25</h3>
                 <div className="space-y-4">
                   <div className="bg-green-800/30 p-4 rounded">
                     <h4 className="font-bold text-green-300 mb-2">Automatic Balancing</h4>
@@ -429,7 +466,7 @@ export default function Home() {
           </div>
 
           {/* Performance Metrics */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
             
             {/* Production Efficiency */}
             <div className="bg-gradient-to-br from-blue-900/30 to-indigo-900/30 backdrop-blur-sm p-6 rounded-xl border border-blue-500/30">
@@ -578,7 +615,7 @@ export default function Home() {
       </section>
 
       {/* Contact Us */}
-      <section id="contact" className="py-16 bg-black text-white relative overflow-hidden">
+      <section id="contact" className="py-12 sm:py-16 bg-black text-white relative overflow-hidden">
         <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}>
           <LightRays
             raysOrigin="left"
@@ -592,11 +629,11 @@ export default function Home() {
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 max-w-7xl mx-auto">
             
             {/* Left Side - Contact Info */}
-            <div>
-              <h2 className="text-4xl font-bold mb-12 text-white">Let's Connect</h2>
+            <div className="order-2 lg:order-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 text-white">Let's Connect</h2>
               
               <div className="space-y-6 mb-12">
                 <div className="flex items-center space-x-4">
@@ -649,22 +686,14 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
-              {/* Map Placeholder */}
-              <div className="bg-gray-900 rounded-lg h-64 flex items-center justify-center border border-gray-700">
-                <div className="text-center text-gray-400">
-                  <div className="text-2xl mb-2">🗺️</div>
-                  <p>Interactive Map Coming Soon</p>
-                </div>
-              </div>
             </div>
             
             {/* Right Side - Contact Form */}
-            <div className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-700">
-              <h3 className="text-2xl font-bold mb-8 text-white">Send Message</h3>
+            <div className="bg-gray-900/50 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-2xl border border-gray-700 order-1 lg:order-2">
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white">Send Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-white font-medium mb-2">Name *</label>
                     <input 
